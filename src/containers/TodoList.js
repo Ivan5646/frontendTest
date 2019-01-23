@@ -36,7 +36,7 @@ class TodoList extends React.Component {
                     <h3>Tasks</h3>
                     <AddTask/>
                     <div>{
-                        this.props.tasks.map((task) => {
+                        (this.props.tasks || []).map((task) => {
                             return (
                                 <div key={task.id}>
                                     <div>{task.id}</div>
@@ -48,9 +48,9 @@ class TodoList extends React.Component {
                     }</div>
                     <Pagination
                         activePage={this.state.activePage}
-                        itemsCountPerPage={10}
-                        totalItemsCount={18}
-                        pageRangeDisplayed={5}
+                        itemsCountPerPage={3}
+                        totalItemsCount={this.props.totalTasks * 3}
+                        pageRangeDisplayed={this.props.totalTasks / 3}
                         onChange={this.handlePageChange}
                     />
                 </div>
@@ -65,7 +65,8 @@ class TodoList extends React.Component {
 
 function mapStateToProps(state){
     return {
-        tasks: state.tasks.tasks
+        tasks: state.tasks.tasks,
+        totalTasks: state.tasks.totalTasks
     }
 }
 
