@@ -26,6 +26,13 @@ export function fetchTasks(pageNumber, sortBy) {
     };
 }
 
+export const setSortField  = (sortField, order) => {
+    return {
+        type: 'SET_SORT_FIELD',
+        sortField: sortField
+    }
+}
+
 export const createTask = (task) => {
     return (dispatch) => {
         // var form = new FormData();

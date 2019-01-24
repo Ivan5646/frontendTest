@@ -22,7 +22,7 @@ class TodoList extends React.Component {
 
     handlePageChange(pageNumber) {
         this.setState({activePage: pageNumber});
-        this.props.fetchTasks(pageNumber);
+        this.props.fetchTasks(pageNumber, this.props.sortField);
     }
 
     render() {
@@ -63,7 +63,8 @@ class TodoList extends React.Component {
 function mapStateToProps(state){
     return {
         tasks: state.tasks.tasks,
-        totalTasks: state.tasks.totalTasks
+        totalTasks: state.tasks.totalTasks,
+        sortField: state.tasks.sortField
     }
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
-import { fetchTasks } from '../actions/index'
+import { fetchTasks, setSortField } from '../actions/index'
 
 class SortTasks extends React.Component {
     constructor(props) {
@@ -9,7 +9,9 @@ class SortTasks extends React.Component {
     }
 
     sort(sortField) {
-        this.props.fetchTasks("", sortField);
+
+       this.props.fetchTasks("", sortField);
+       this.props.setSortField(sortField);
     }
 
     render() {
@@ -25,7 +27,7 @@ class SortTasks extends React.Component {
 }
 
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({fetchTasks: fetchTasks}, dispatch)
+    return bindActionCreators({fetchTasks: fetchTasks, setSortField: setSortField}, dispatch)
 }
 
 export default connect(null, matchDispatchToProps)(SortTasks);
