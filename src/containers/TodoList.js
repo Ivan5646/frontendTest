@@ -22,7 +22,8 @@ class TodoList extends React.Component {
 
     handlePageChange(pageNumber) {
         this.setState({activePage: pageNumber});
-        this.props.fetchTasks(pageNumber, this.props.sortField);
+        var sortArg = globSortField ? globSortField : "";
+        this.props.fetchTasks(pageNumber, sortArg);
     }
 
     render() {
@@ -37,7 +38,8 @@ class TodoList extends React.Component {
                             return (
                                 <div key={task.id}>
                                     <div>{task.id}</div>
-                                    <div>{task.email}</div>
+                                    <div><span>username: </span>{task.username}</div>
+                                    <div><span>email: </span>{task.email}</div>
                                     <div>{task.text}</div>
                                 </div>
                             )
@@ -61,6 +63,7 @@ class TodoList extends React.Component {
 }
 
 function mapStateToProps(state){
+    console.log("state.tasks.sortField", state.tasks.sortField);
     return {
         tasks: state.tasks.tasks,
         totalTasks: state.tasks.totalTasks,
