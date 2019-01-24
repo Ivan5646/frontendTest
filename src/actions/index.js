@@ -10,10 +10,11 @@ export const receiveTasks = (result) => ({
     result: result,
 });
 
-export function fetchTasks(pageNumber) {
+export function fetchTasks(pageNumber, sortBy) {
     return function (dispatch) {
+        console.log("fetch fired", `https://uxcandy.com/~shapoval/test-task-backend/?developer=mikhai${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}`);
         dispatch(requestTasks());
-        return fetch(`https://uxcandy.com/~shapoval/test-task-backend/?developer=mikhai&page=${pageNumber}`)
+        return fetch(`https://uxcandy.com/~shapoval/test-task-backend/?developer=mikhai${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}`)
             .then(
                 response => response.json(),
                 error => console.log('An error occurred.', error),

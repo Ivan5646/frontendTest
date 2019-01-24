@@ -5,6 +5,7 @@ import Pagination from "react-js-pagination";
 //require("bootstrap/less/bootstrap.less");
 import { fetchTasks } from "../actions/index";
 import AddTask from "./AddTask"
+import SortTasks from "./SortTasks"
 
 class TodoList extends React.Component {
     constructor(props) {
@@ -19,12 +20,7 @@ class TodoList extends React.Component {
         this.props.fetchTasks();
     }
 
-    // loadTasks() {
-    //     this.props.fetchTasks()
-    // }
-
     handlePageChange(pageNumber) {
-        console.log(`active page is ${pageNumber}`);
         this.setState({activePage: pageNumber});
         this.props.fetchTasks(pageNumber);
     }
@@ -33,6 +29,7 @@ class TodoList extends React.Component {
         if (this.props.tasks) {
             return (
                 <div>
+                    <SortTasks/>
                     <h3>Tasks</h3>
                     <AddTask/>
                     <div>{
