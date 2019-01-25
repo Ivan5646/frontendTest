@@ -6,6 +6,7 @@ import Pagination from "react-js-pagination";
 import { fetchTasks } from "../actions/index";
 import AddTask from "./AddTask"
 import SortTasks from "./SortTasks"
+import Login from "./Login"
 
 class TodoList extends React.Component {
     constructor(props) {
@@ -30,6 +31,7 @@ class TodoList extends React.Component {
         if (this.props.tasks) {
             return (
                 <div>
+                    <Login/>
                     <SortTasks/>
                     <h3>Tasks</h3>
                     <AddTask/>

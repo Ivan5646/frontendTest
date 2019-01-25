@@ -12,9 +12,9 @@ export const receiveTasks = (result) => ({
 
 export function fetchTasks(pageNumber, sortBy) {
     return function (dispatch) {
-        console.log("fetch fired", `https://uxcandy.com/~shapoval/test-task-backend/?developer=mikhai${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}`);
+        console.log("fetch fired", `https://uxcandy.com/~shapoval/test-task-backend/?developer=ivan${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}`);
         dispatch(requestTasks());
-        return fetch(`https://uxcandy.com/~shapoval/test-task-backend/?developer=mikhai${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}`)
+        return fetch(`https://uxcandy.com/~shapoval/test-task-backend/?developer=ivan${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}`)
             .then(
                 response => response.json(),
                 error => console.log('An error occurred.', error),
@@ -92,6 +92,13 @@ export const createTaskSuccess = (data) => { // coming undefined
         }
     }
 };
+
+export const login = (data) => {
+    return {
+        type: 'LOGIN',
+        payload: data
+    }
+}
 
 
 // export const createTask = (task) => {
