@@ -7,12 +7,14 @@ import { fetchTasks } from "../actions/index";
 import AddTask from "./AddTask"
 import SortTasks from "./SortTasks"
 import Login from "./Login"
+import EditTask from "./EditTask"
 
 class TodoList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            activePage: 1
+            activePage: 1,
+            showForm: false
         };
         this.handlePageChange = this.handlePageChange.bind(this);
     }
@@ -25,6 +27,13 @@ class TodoList extends React.Component {
         this.setState({activePage: pageNumber});
         var sortArg = globSortField ? globSortField : "";
         this.props.fetchTasks(pageNumber, sortArg);
+    }
+
+    toggleEditForm(taskId) {
+        this.setState({
+            showForm: !this.state.showForm,
+            taskId: taskId
+        })
     }
 
     render() {
@@ -43,6 +52,10 @@ class TodoList extends React.Component {
                                     <div><span>username: </span>{task.username}</div>
                                     <div><span>email: </span>{task.email}</div>
                                     <div>{task.text}</div>
+                                    <div>
+                                        <button onClick={() => this.toggleEditForm(task.id)}>Edit</button>
+                                        {this.state.showForm && this.state.taskId === task.id && <EditTask name={task.name} email={task.email} text={task.text} status={task.status}/>}
+                                    </div>
                                 </div>
                             )
                         })

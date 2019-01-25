@@ -100,6 +100,13 @@ export const login = (data) => {
     }
 }
 
+export const editTask = (data) => {
+    return {
+        type: 'EDIT_TASK',
+        payload: data
+    }
+}
+
 
 // export const createTask = (task) => {
 //     console.log("username, email, text", task.username, task.email, task.text);
