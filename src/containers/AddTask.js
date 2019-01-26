@@ -54,10 +54,6 @@ class AddTask extends React.Component {
                     <label>Text</label>
                     <input type="text"  value={this.state.text} onChange={(e) => this.handleTextChange(e)} />
                 </div>
-                <div> {/* admin only can check it*/}
-                    <label>Done</label>
-                    <input type="checkbox"/>
-                </div>
                 <button type="submit">create</button>
             </form>
         )

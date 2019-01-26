@@ -36,6 +36,11 @@ class TodoList extends React.Component {
         })
     }
 
+    handleCheck(e) {
+        // if admin, able to check and send it to backend. If not admin preventDefault().
+        e.preventDefault();
+    }
+
     render() {
         if (this.props.tasks) {
             return (
@@ -52,6 +57,10 @@ class TodoList extends React.Component {
                                     <div><span>username: </span>{task.username}</div>
                                     <div><span>email: </span>{task.email}</div>
                                     <div>{task.text}</div>
+                                    <div>
+                                        <label>Done</label>
+                                        <input onClick={(e) => this.handleCheck(e)} type="checkbox" defaultChecked={task.status !== 0}/>
+                                    </div>
                                     <div>
                                         {this.props.admin && <button onClick={() => this.toggleEditForm(task.id)}>Edit</button>}
                                         {this.state.showForm && this.state.taskId === task.id && <EditTask name={task.name} email={task.email} text={task.text} status={task.status}/>}
