@@ -53,7 +53,7 @@ class TodoList extends React.Component {
                                     <div><span>email: </span>{task.email}</div>
                                     <div>{task.text}</div>
                                     <div>
-                                        <button onClick={() => this.toggleEditForm(task.id)}>Edit</button>
+                                        {this.props.admin && <button onClick={() => this.toggleEditForm(task.id)}>Edit</button>}
                                         {this.state.showForm && this.state.taskId === task.id && <EditTask name={task.name} email={task.email} text={task.text} status={task.status}/>}
                                     </div>
                                 </div>
@@ -82,7 +82,8 @@ function mapStateToProps(state){
     return {
         tasks: state.tasks.tasks,
         totalTasks: state.tasks.totalTasks,
-        sortField: state.tasks.sortField
+        sortField: state.tasks.sortField,
+        admin: state.login.loggedUser
     }
 }
 
