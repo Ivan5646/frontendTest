@@ -108,7 +108,7 @@ export const editTask = (data) => {
 }
 
 // async wait
-export const createTaskAwait = (data) => {
+export const createTaskAwait = (task) => {
     const config = {
         APIHost: 'https://uxcandy.com/~shapoval/test-task-backend',
         developer: 'mikhai',
@@ -124,9 +124,9 @@ export const createTaskAwait = (data) => {
     return (dispatch) => {
      (async () => {
         const form = new FormData();
-        form.append('username', "Jack");
-        form.append('email', "Jack@mail.com");
-        form.append('text', "Eden");
+        form.append('username', task.username);
+        form.append('email', task.email);
+        form.append('text', task.text);
 
         try {
             const { data } = await instance.post('/create', form);

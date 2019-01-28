@@ -31,11 +31,7 @@ class AddTask extends React.Component {
 
     onSubmit(e){
         e.preventDefault();
-        this.props.createTaskAwait();
-        // console.log(e);
-        // console.log("this.state.form", this.state);
-        // console.log("this.state.form.email", this.state.email);
-        //this.props.createTask({username: "xxx", email: "xxx@yahoo.com", text: "random text"});
+        this.props.createTaskAwait({username: this.state.username, email: this.state.email, text: this.state.text});
         // validate
         // then reset the state agian to ''
     }
