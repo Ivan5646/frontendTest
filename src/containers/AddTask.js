@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
-import { createTask } from "../actions/index";
+import { createTask, createTaskAwait } from "../actions/index";
 
 
 class AddTask extends React.Component {
@@ -31,10 +31,11 @@ class AddTask extends React.Component {
 
     onSubmit(e){
         e.preventDefault();
-        console.log(e);
-        console.log("this.state.form", this.state);
-        console.log("this.state.form.email", this.state.email);
-        this.props.createTask({username: "xxx", email: "xxx@yahoo.com", text: "random text"});
+        this.props.createTaskAwait();
+        // console.log(e);
+        // console.log("this.state.form", this.state);
+        // console.log("this.state.form.email", this.state.email);
+        //this.props.createTask({username: "xxx", email: "xxx@yahoo.com", text: "random text"});
         // validate
         // then reset the state agian to ''
     }
@@ -67,7 +68,7 @@ function mapStateToProps(state){
 }
 
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({createTask: createTask}, dispatch)
+    return bindActionCreators({createTask: createTask, createTaskAwait: createTaskAwait}, dispatch)
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(AddTask);

@@ -107,6 +107,43 @@ export const editTask = (data) => {
     }
 }
 
+// async wait
+export const createTaskAwait = (data) => {
+    const config = {
+        APIHost: 'https://uxcandy.com/~shapoval/test-task-backend',
+        developer: 'mikhai',
+        token: 'beejee',
+    };
+    axios.defaults.baseURL = config.APIHost;
+    axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+    const instance = axios.create({
+        params: {
+            developer: config.developer,
+        },
+    });
+    return (dispatch) => {
+     (async () => {
+        const form = new FormData();
+        form.append('username', "Jack");
+        form.append('email', "Jack@mail.com");
+        form.append('text', "Eden");
+
+        try {
+            const { data } = await instance.post('/create', form);
+
+            if (data.status === 'ok') {
+                console.log("data.status", data.status);
+                dispatch(createTaskSuccess(data))
+            } else {
+                console.log("data.message", data.message);
+            }
+        } catch (error) {
+            console.log('Network error');
+        }
+    })();
+    }
+}
+
 
 // export const createTask = (task) => {
 //     console.log("username, email, text", task.username, task.email, task.text);
