@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
 import Pagination from "react-js-pagination";
 //require("bootstrap/less/bootstrap.less");
-import { fetchTasks } from "../actions/index";
+import { fetchTasks, setPageNumber } from "../actions/index";
 import AddTask from "./AddTask"
 import SortTasks from "./SortTasks"
 import Login from "./Login"
@@ -24,9 +24,13 @@ class TodoList extends React.Component {
     }
 
     handlePageChange(pageNumber) {
+        console.log("handlePageChange", pageNumber);
         this.setState({activePage: pageNumber});
-        var sortArg = globSortField ? globSortField : "";
-        this.props.fetchTasks(pageNumber, sortArg);
+        // var sortArg = globSortField ? globSortField : "";
+        this.props.fetchTasks(pageNumber, this.props.sortField, this.props.sortOrder);
+
+        // set the fetch args here to the store, in action get it from the store
+        this.props.setPageNumber(pageNumber);
     }
 
     toggleEditForm(taskId) {
@@ -43,6 +47,7 @@ class TodoList extends React.Component {
 
     render() {
         if (this.props.tasks) {
+            console.log("this.props.totalTasks", this.props.totalTasks);
             return (
                 <div>
                     <Login/>
@@ -50,16 +55,16 @@ class TodoList extends React.Component {
                     <h3>Tasks</h3>
                     <AddTask/>
                     <div>{
-                        (this.props.tasks || []).map((task) => {
+                        (this.props.tasks || []).map((task, index) => {
                             return (
-                                <div key={task.id}>
+                                <div key={task.id ? task.id : index}>
                                     <div>{task.id}</div>
                                     <div><span>username: </span>{task.username}</div>
                                     <div><span>email: </span>{task.email}</div>
                                     <div>{task.text}</div>
                                     <div>
                                         <label>Done</label>
-                                        <input onClick={(e) => this.handleCheck(e)} type="checkbox" defaultChecked={task.status !== 0}/>
+                                        <input onClick={(e) => this.handleCheck(e)} type="checkbox" defaultChecked={task.status && task.status !== 0}/>
                                     </div>
                                     <div>
                                         {this.props.admin && <button onClick={() => this.toggleEditForm(task.id)}>Edit</button>}
@@ -72,7 +77,7 @@ class TodoList extends React.Component {
                     <Pagination
                         activePage={this.state.activePage}
                         itemsCountPerPage={3}
-                        totalItemsCount={this.props.totalTasks * 3}
+                        totalItemsCount={this.props.totalTasks}
                         pageRangeDisplayed={this.props.totalTasks / 3}
                         onChange={this.handlePageChange}
                     />
@@ -87,17 +92,18 @@ class TodoList extends React.Component {
 }
 
 function mapStateToProps(state){
-    console.log("state.tasks.sortField", state.tasks.sortField);
     return {
         tasks: state.tasks.tasks,
         totalTasks: state.tasks.totalTasks,
-        sortField: state.tasks.sortField,
-        admin: state.login.loggedUser
+        //sortField: state.tasks.sortField,
+        admin: state.login.loggedUser,
+        sortField: state.fetchArgs.sortField,
+        sortOrder: state.fetchArgs.sortOrder,
     }
 }
 
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({fetchTasks: fetchTasks}, dispatch)
+    return bindActionCreators({fetchTasks: fetchTasks, setPageNumber: setPageNumber}, dispatch)
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(TodoList);
