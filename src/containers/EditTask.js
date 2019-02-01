@@ -30,10 +30,6 @@ class EditTask extends React.Component {
     render() {
         return(
             <form onSubmit={(e) => this.onSubmit(e)}>
-                <label htmlFor="">Name</label>
-                <input type="text" defaultValue={this.props.name} />
-                <label htmlFor="">Email</label>
-                <input type="text"  defaultValue={this.props.email}/>
                 <label htmlFor="">Text</label>
                 <input type="text" defaultValue={this.props.text} onChange={(e) => this.handleTextChange(e)} />
                 <input type="checkbox" defaultValue={this.props.status} onChange={(e) => this.handleStatusChange(e)} />

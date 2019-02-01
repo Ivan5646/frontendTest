@@ -32,8 +32,10 @@ class AddTask extends React.Component {
     onSubmit(e){
         e.preventDefault();
         this.props.createTaskAwait({username: this.state.username, email: this.state.email, text: this.state.text});
-        // validate
-        // then reset the state agian to ''
+        // reset fields
+        this.setState({username: ''});
+        this.setState({text: ''});
+        this.setState({email: ''});
     }
 
     render() {
@@ -41,11 +43,11 @@ class AddTask extends React.Component {
             <form onSubmit={(e) => this.onSubmit(e)}>
                 <div>
                     <label>Name</label>
-                    <input type="text" value={this.state.username} onChange={(e) => this.handleUsernameChange(e)} />
+                    <input type="text" value={this.state.username} onChange={(e) => this.handleUsernameChange(e)} required />
                 </div>
                 <div>
                     <label>Email</label>
-                    <input type="email" value={this.state.email} onChange={(e) => this.handleEmailChange(e)} />
+                    <input type="email" value={this.state.email} onChange={(e) => this.handleEmailChange(e)} required />
                 </div>
                 <div>
                     <label>Text</label>
