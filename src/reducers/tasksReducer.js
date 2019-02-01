@@ -5,7 +5,7 @@ const reducer = (state = {sortField: ""}, action) => {
         case 'RECEIVE_TASKS':
             return { ...state, tasks: action.result.message.tasks, totalTasks: action.result.message.total_task_count, loading: false };
         case 'ADD_TASK':
-            return {...state, newTask: action.payload};
+            return {...state, newTask: action.payload}; // ? now fetched from backend
         case 'SET_SORT_FIELD':
             return {...state, sortField: action.sortField};
         default:

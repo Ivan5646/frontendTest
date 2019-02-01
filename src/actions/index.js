@@ -1,5 +1,12 @@
 import axios from 'axios';
 import store from '../store'
+import md5 from 'js-md5';
+
+const config = {
+    APIHost: 'https://uxcandy.com/~shapoval/test-task-backend', //https://uxcandy.com/~shapoval/test-task-backend   http://ptsv2.com/t/0o8hh-1548184815/post
+    developer: 'mikhai',
+    token: 'beejee',
+};
 
 // fetch args
 export const setPageNumber = (pageNumber) => ({
@@ -48,11 +55,6 @@ export function fetchTasks(pageNumber, sortBy, sortOrder) {
 
 // async wait
 export const createTaskAwait = (task) => {
-    const config = {
-        APIHost: 'https://uxcandy.com/~shapoval/test-task-backend', //https://uxcandy.com/~shapoval/test-task-backend
-        developer: 'mikhai',
-        token: 'beejee',
-    };
     axios.defaults.baseURL = config.APIHost;
     axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
     const instance = axios.create({
@@ -74,32 +76,32 @@ export const createTaskAwait = (task) => {
                     console.log("data.status", data.status);
                     //dispatch(createTaskSuccess(data))
                     // fetch tasks, handle arguments (save them to the store and get them from it?)
-                    const page = store.getState().fetchArgs.pageNumber;
-                    console.log("page", page);
-                    const sortField = store.getState().fetchArgs.sortField;
-                    console.log("sortField", sortField);
-                    const sortOrder = store.getState().fetchArgs.sortOrder;
-                    console.log("sortOrder", sortOrder);
-                    dispatch(fetchTasks(page, sortField, sortOrder));
+                    // const page = store.getState().fetchArgs.pageNumber;
+                    // console.log("page", page);
+                    // const sortField = store.getState().fetchArgs.sortField;
+                    // console.log("sortField", sortField);
+                    // const sortOrder = store.getState().fetchArgs.sortOrder;
+                    // console.log("sortOrder", sortOrder);
+                    // dispatch(fetchTasks(page, sortField, sortOrder));
                 } else {
                     console.log("data.message", data.message);
                 }
             } catch (error) {
                 console.log('Network error');
-                // dispatch(createTaskSuccess({username: "myNameeee", email: "yahoo", text: "this text"}));
-                // const page = store.getState().fetchArgs.pageNumber;
-                // console.log("page", page);
-                // const sortField = store.getState().fetchArgs.sortField;
-                // console.log("sortField", sortField);
-                // const sortOrder = store.getState().fetchArgs.sortOrder;
-                // console.log("sortOrder", sortOrder);
-                // dispatch(fetchTasks(page, sortField, sortOrder));
+                dispatch(createTaskSuccess({username: "myNameeee", email: "yahoo", text: "this text"}));
+                const page = store.getState().fetchArgs.pageNumber;
+                console.log("page", page);
+                const sortField = store.getState().fetchArgs.sortField;
+                console.log("sortField", sortField);
+                const sortOrder = store.getState().fetchArgs.sortOrder;
+                console.log("sortOrder", sortOrder);
+                dispatch(fetchTasks(page, sortField, sortOrder));
             }
         })();
     }
 }
 
-export const createTaskSuccess = (data) => { // coming undefined
+export const createTaskSuccess = (data) => {
     console.log("createTaskSuccess", data);
     return {
         type: 'ADD_TASK',
@@ -119,10 +121,73 @@ export const login = (data) => {
     }
 }
 
-export const editTask = (data) => {
+function generateSignature(data, token) {
+    var status = data.status ? 10 : 0;
+    // id 7612
+    // var sortedAndToken = "username=ajax&email=gggggggg@ggg.com&text=text text&token=beejee"; // sort alphabetically data
+    //var sortedAndToken = "status=0&text=text text&token=beejee"; // only fields that are editing
+    var sortedAndToken = `status=${status}&text=${data.text}&token=beejee`; // the values being inputted
+    sortedAndToken = encodeURIComponent(sortedAndToken); // URI encode
+    console.log("URI encoded", sortedAndToken);
+    var signature = md5(sortedAndToken); // create md5 hash
+    console.log("signature", signature);
+    return signature;
+
+    //const signature = `${data.username}${data.email}${data.text}`
+}
+//generateSignature();
+
+export const updateTask = (task, id) => {
+    var status = task.status ? 10 : 0;
+    status = status.toString();
+    console.log("task, id", task, id);
+    axios.defaults.baseURL = config.APIHost;
+    axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+    const instance = axios.create({
+        params: {
+            developer: config.developer,
+            // text: task.text,
+            // status: task.status ? 10 : 0
+        },
+    });
+    return (dispatch) => {
+        (async () => {
+            const form = new FormData();
+            form.append('text', task.text);
+            form.append('status', status);
+            form.append('token', config.token);
+            form.append('signature', generateSignature(task));
+            //form.append('signature', generateSignature(gatheringFormData, { key: 'token', value: config.token }));
+
+            try {
+                const { data } = await instance.post(`/edit/${id}`, form);
+
+                if (data.status === 'ok') {
+                    console.log("data.status", data.status);
+                    //dispatch(createTaskSuccess(data));
+                    //fetch tasks, handle arguments (save them to the store and get them from it?)
+                    const page = store.getState().fetchArgs.pageNumber;
+                    console.log("page", page);
+                    const sortField = store.getState().fetchArgs.sortField;
+                    console.log("sortField", sortField);
+                    const sortOrder = store.getState().fetchArgs.sortOrder;
+                    console.log("sortOrder", sortOrder);
+                    dispatch(fetchTasks(page, sortField, sortOrder));
+                } else {
+                    console.log("data.message", data.message);
+                }
+            } catch (error) {
+                console.log('Network error');
+            }
+        })();
+    }
+}
+
+
+export const updateTaskSuccess = (data) => {
     return {
-        type: 'EDIT_TASK',
-        payload: data
+        type: 'UPDATE_TASK_SUCCESS',
+        data
     }
 }
 
