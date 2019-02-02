@@ -1,12 +1,15 @@
 import axios from 'axios';
 import store from '../store'
 import md5 from 'js-md5';
+import config from '../configs/config'
 
-const config = {
-    APIHost: 'https://uxcandy.com/~shapoval/test-task-backend', //https://uxcandy.com/~shapoval/test-task-backend   http://ptsv2.com/t/0o8hh-1548184815/post
-    developer: 'mikhai',
-    token: 'beejee',
-};
+axios.defaults.baseURL = config.APIHost;
+axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+const instance = axios.create({
+    params: {
+        developer: config.developer,
+    },
+});
 
 // fetch args
 export const setPageNumber = (pageNumber) => ({
@@ -55,13 +58,6 @@ export function fetchTasks(pageNumber, sortBy, sortOrder) {
 
 // async wait
 export const createTaskAwait = (task) => {
-    axios.defaults.baseURL = config.APIHost;
-    axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
-    const instance = axios.create({
-        params: {
-            developer: config.developer,
-        },
-    });
     return (dispatch) => {
         (async () => {
             const form = new FormData();
@@ -76,26 +72,18 @@ export const createTaskAwait = (task) => {
                     console.log("data.status", data.status);
                     //dispatch(createTaskSuccess(data))
                     // fetch tasks, handle arguments (save them to the store and get them from it?)
-                    // const page = store.getState().fetchArgs.pageNumber;
-                    // console.log("page", page);
-                    // const sortField = store.getState().fetchArgs.sortField;
-                    // console.log("sortField", sortField);
-                    // const sortOrder = store.getState().fetchArgs.sortOrder;
-                    // console.log("sortOrder", sortOrder);
-                    // dispatch(fetchTasks(page, sortField, sortOrder));
+                    const page = store.getState().fetchArgs.pageNumber;
+                    console.log("page", page);
+                    const sortField = store.getState().fetchArgs.sortField;
+                    console.log("sortField", sortField);
+                    const sortOrder = store.getState().fetchArgs.sortOrder;
+                    console.log("sortOrder", sortOrder);
+                    dispatch(fetchTasks(page, sortField, sortOrder));
                 } else {
                     console.log("data.message", data.message);
                 }
             } catch (error) {
                 console.log('Network error');
-                dispatch(createTaskSuccess({username: "myNameeee", email: "yahoo", text: "this text"}));
-                const page = store.getState().fetchArgs.pageNumber;
-                console.log("page", page);
-                const sortField = store.getState().fetchArgs.sortField;
-                console.log("sortField", sortField);
-                const sortOrder = store.getState().fetchArgs.sortOrder;
-                console.log("sortOrder", sortOrder);
-                dispatch(fetchTasks(page, sortField, sortOrder));
             }
         })();
     }
@@ -141,15 +129,6 @@ export const updateTask = (task, id) => {
     var status = task.status ? 10 : 0;
     status = status.toString();
     console.log("task, id", task, id);
-    axios.defaults.baseURL = config.APIHost;
-    axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
-    const instance = axios.create({
-        params: {
-            developer: config.developer,
-            // text: task.text,
-            // status: task.status ? 10 : 0
-        },
-    });
     return (dispatch) => {
         (async () => {
             const form = new FormData();
