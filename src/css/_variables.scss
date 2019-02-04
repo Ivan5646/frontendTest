@@ -1,3 +1,7 @@
+@mixin bottomMargin {
+    margin-bottom: 20px;
+}
+
 @mixin container {
     width: 100%;
     padding-right: 15px;

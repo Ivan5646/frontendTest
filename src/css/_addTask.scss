@@ -1,5 +1,27 @@
 @import "variables";
+@import "../../node_modules/bootstrap/scss/mixins";
 
 .add-task {
     display: flex;
+    @include bottomMargin();
+
+    &__field-block {
+        display: flex;
+        flex-direction: column;
+        margin-right: 12px;
+
+        input {
+            padding: 4px;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    button[type="submit"] {
+        height: 50%;
+        align-self: flex-end;
+        min-width: 100px;
+    }
 }
