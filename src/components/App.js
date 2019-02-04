@@ -1,8 +1,10 @@
 import React from 'react'
 import TodoList from '../containers/TodoList'
+import Header from '../containers/Header'
 
 const App = () => (
-    <div>
+    <div className="fluid-container">
+        <Header/>
         <TodoList />
     </div>
 )

@@ -1,0 +1,16 @@
+@import "variables.scss";
+
+.sort {
+    display: flex;
+    align-items: center;
+
+    h3 {
+        margin-right: 16px;
+    }
+
+    div {
+        cursor: pointer;
+        margin-right: 10px;
+
+    }
+}

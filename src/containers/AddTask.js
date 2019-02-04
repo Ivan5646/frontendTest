@@ -40,16 +40,16 @@ class AddTask extends React.Component {
 
     render() {
         return (
-            <form onSubmit={(e) => this.onSubmit(e)}>
-                <div>
+            <form onSubmit={(e) => this.onSubmit(e)} className="add-task">
+                <div className="add-task__field-block">
                     <label>Name</label>
                     <input type="text" value={this.state.username} onChange={(e) => this.handleUsernameChange(e)} required />
                 </div>
-                <div>
+                <div className="add-task__field-block">
                     <label>Email</label>
                     <input type="email" value={this.state.email} onChange={(e) => this.handleEmailChange(e)} required />
                 </div>
-                <div>
+                <div className="add-task__field-block">
                     <label>Text</label>
                     <input type="text"  value={this.state.text} onChange={(e) => this.handleTextChange(e)} />
                 </div>

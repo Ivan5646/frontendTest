@@ -2,11 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
 import Pagination from "react-js-pagination";
-//require("bootstrap/less/bootstrap.less");
 import { fetchTasks, setPageNumber } from "../actions/index";
 import AddTask from "./AddTask"
 import SortTasks from "./SortTasks"
-import Login from "./Login"
+// import Login from "./Login"
 import EditTask from "./EditTask"
 
 class TodoList extends React.Component {
@@ -49,10 +48,8 @@ class TodoList extends React.Component {
         if (this.props.tasks) {
             console.log("this.props.totalTasks", this.props.totalTasks);
             return (
-                <div>
-                    <Login/>
+                <div className="todo-list container">
                     <SortTasks/>
-                    <h3>Tasks</h3>
                     <AddTask/>
                     <div>{
                         (this.props.tasks || []).map((task, index) => {
@@ -75,6 +72,8 @@ class TodoList extends React.Component {
                         })
                     }</div>
                     <Pagination
+                        itemClass={"page-item"}
+                        linkClass={"page-link"}
                         activePage={this.state.activePage}
                         itemsCountPerPage={3}
                         totalItemsCount={this.props.totalTasks}

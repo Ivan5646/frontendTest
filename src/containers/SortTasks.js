@@ -28,12 +28,12 @@ class SortTasks extends React.Component {
 
     render() {
         return(
-            <div>
+            <div className="sort">
                 <h3>Sort by</h3>
                 <div onClick={() => this.sort("username")}>Username</div>
                 <div onClick={() => this.sort("email")}>Email</div>
                 <div onClick={() => this.sort("status")}>Status</div>
-                <div onClick={() => this.sortDirection()}>{this.props.sortOrder === 'asc' ? 'change sort order to from Z to A' : ' change sort order to from A to Z'}</div>
+                <div onClick={() => this.sortDirection()}>{this.props.sortOrder === 'asc' ? 'Change sort order to from Z to A' : ' Change sort order to from A to Z'}</div>
             </div>
         )
     }

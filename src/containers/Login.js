@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
 import { login } from "../actions/index";
-import {createTask} from "../actions";
 
 class Login extends React.Component {
     constructor(props) {
@@ -10,16 +9,13 @@ class Login extends React.Component {
 
         this.state = {
             login : "",
-            password: ""
+            password: "",
+            showForm: false
         }
     }
-
-    handleLoginChange(e) {
-        this.setState({login: e.target.value});
-    }
-
-    handlePasswordChange(e) {
-        this.setState({password: e.target.value});
+    
+    formOnChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     onSubmit(e) {
@@ -27,17 +23,32 @@ class Login extends React.Component {
         if ( this.state.login == 'admin' && this.state.password == '123') {
             this.props.login({login: this.state.login, password: this.state.password});
         }
+        this.setState({login: ''});
+        this.setState({password: ''});
+    }
+
+    renderForm(){
+        this.setState({showForm: !this.state.showForm});
+    }
+
+    form() {
+        return (
+           this.state.showForm && (<form onSubmit={(e) => this.onSubmit(e)}>
+                <label htmlFor="">Login</label>
+                <input type="text" placeholder="login" name="login" value={this.state.login} onChange={(e) => this.formOnChange(e)}/>
+                <label htmlFor="">Password</label>
+                <input type="text" placeholder="password" name="password" value={this.state.password} onChange={(e) => this.formOnChange(e)} />
+                <button type="submit">submit</button>
+            </form>)
+        )
     }
 
     render() {
         return (
-            <form onSubmit={(e) => this.onSubmit(e)}>
-                <label htmlFor="">Login</label>
-                <input type="text" placeholder="login" value={this.state.username} onChange={(e) => this.handleLoginChange(e)}/>
-                <label htmlFor="">Password</label>
-                <input type="text" placeholder="password" value={this.state.username} onChange={(e) => this.handlePasswordChange(e)} />
-                <button type="submit">submit</button>
-            </form>
+            <div>
+                <div onClick={() => this.renderForm()}>Login</div>
+                <div>{this.form()}</div>
+            </div>
             )
     }
 }
