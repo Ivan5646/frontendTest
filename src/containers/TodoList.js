@@ -48,13 +48,13 @@ class TodoList extends React.Component {
         if (this.props.tasks) {
             console.log("this.props.totalTasks", this.props.totalTasks);
             return (
-                <div className="todo-list container">
+                <div className="container wrapper">
                     <SortTasks/>
                     <AddTask/>
-                    <div>{
+                    <div className="todo-list">{
                         (this.props.tasks || []).map((task, index) => {
                             return (
-                                <div key={task.id ? task.id : index}>
+                                <div key={task.id ? task.id : index} className="todo-list__todo">
                                     <div>{task.id}</div>
                                     <div><span>username: </span>{task.username}</div>
                                     <div><span>email: </span>{task.email}</div>

@@ -33,7 +33,7 @@ class SortTasks extends React.Component {
                 <div onClick={() => this.sort("username")}>Username</div>
                 <div onClick={() => this.sort("email")}>Email</div>
                 <div onClick={() => this.sort("status")}>Status</div>
-                <div onClick={() => this.sortDirection()}>{this.props.sortOrder === 'asc' ? 'Change sort order to from Z to A' : ' Change sort order to from A to Z'}</div>
+                <div onClick={() => this.sortDirection()}>{this.props.sortOrder === 'asc' ? 'From Z to A' : 'From A to Z'}</div>
             </div>
         )
     }

@@ -3,6 +3,7 @@
 
 .add-task {
     display: flex;
+    justify-content: center;
     @include bottomMargin();
 
     &__field-block {

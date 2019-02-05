@@ -3,6 +3,7 @@
 .sort {
     display: flex;
     align-items: center;
+    justify-content: center;
     @include bottomMargin();
 
     h3 {
