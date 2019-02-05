@@ -10,7 +10,7 @@ class Login extends React.Component {
         this.state = {
             login : "",
             password: "",
-            showForm: false
+            showForm: true
         }
     }
     
@@ -33,11 +33,15 @@ class Login extends React.Component {
 
     form() {
         return (
-           this.state.showForm && (<form onSubmit={(e) => this.onSubmit(e)}>
-                <label htmlFor="">Login</label>
-                <input type="text" placeholder="login" name="login" value={this.state.login} onChange={(e) => this.formOnChange(e)}/>
-                <label htmlFor="">Password</label>
-                <input type="text" placeholder="password" name="password" value={this.state.password} onChange={(e) => this.formOnChange(e)} />
+           this.state.showForm && (<form onSubmit={(e) => this.onSubmit(e)} className="login__form">
+               <div>
+                    <label htmlFor="">Login</label>
+                    <input type="text" placeholder="login" name="login" value={this.state.login} onChange={(e) => this.formOnChange(e)}/>
+               </div>
+               <div>
+                    <label htmlFor="">Password</label>
+                    <input type="text" placeholder="password" name="password" value={this.state.password} onChange={(e) => this.formOnChange(e)} />
+               </div>
                 <button type="submit">submit</button>
             </form>)
         )
@@ -45,9 +49,9 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div>
-                <div onClick={() => this.renderForm()}>Login</div>
+            <div className="login">
                 <div>{this.form()}</div>
+                <div onClick={() => this.renderForm()}>Login</div>
             </div>
             )
     }

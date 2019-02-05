@@ -1,7 +1,10 @@
 @import "variables.scss";
 
 .header {
-    border: 1px solid black;
+    background-color: #24292e;
+    color: hsla(0,0%,100%,.75);
+    padding: 12px 20px;
+    z-index: 32;
     display: flex;
     justify-content: space-between;
     @include bottomMargin();

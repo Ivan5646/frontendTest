@@ -1,0 +1,21 @@
+.login {
+    display: flex;
+
+    &__form {
+        display: flex;
+        margin-right: 14px;
+
+        div {
+            margin-right: 8px;
+
+            label {
+                margin-right: 8px;
+            }
+        }
+    }
+    
+    button[type="submit"] {
+        cursor: pointer;
+        height: 100%;
+    }
+}
