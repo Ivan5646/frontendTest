@@ -1,5 +1,11 @@
 .login {
     display: flex;
+    align-items: center;
+
+    &__btn:hover {
+        color: #fff;
+        cursor: pointer;
+    }
 
     &__form {
         display: flex;
@@ -10,6 +16,11 @@
 
             label {
                 margin-right: 8px;
+            }
+
+            input {
+                padding-right: 4px;
+                padding-left: 4px;
             }
         }
     }

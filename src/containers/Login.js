@@ -51,7 +51,7 @@ class Login extends React.Component {
         return (
             <div className="login">
                 <div>{this.form()}</div>
-                <div onClick={() => this.renderForm()}>Login</div>
+                <div onClick={() => this.renderForm()} className="login__btn">Login</div>
             </div>
             )
     }

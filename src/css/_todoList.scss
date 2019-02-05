@@ -4,6 +4,7 @@
     display: flex;
     justify-content: space-evenly;
     @include bottomMargin();
+    flex-wrap: wrap;
 
     &__todo {
         width: 240px;

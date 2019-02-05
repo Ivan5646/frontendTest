@@ -29,6 +29,7 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-js-pagination": "^3.0.2",
+    "react-transition-group": "^2.5.3",
     "redux-logger": "^3.0.6",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.20.3",

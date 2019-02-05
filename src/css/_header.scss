@@ -7,5 +7,11 @@
     z-index: 32;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     @include bottomMargin();
+
+    h2:hover {
+        color: #fff;
+        cursor: pointer;
+    }
 }

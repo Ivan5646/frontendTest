@@ -4,12 +4,16 @@
 .add-task {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-end;
     @include bottomMargin();
 
     &__field-block {
         display: flex;
         flex-direction: column;
         margin-right: 12px;
+        margin-bottom: 12px;
+        min-width: 200px;
 
         input {
             padding: 4px;
@@ -22,7 +26,8 @@
 
     button[type="submit"] {
         height: 50%;
-        align-self: flex-end;
-        min-width: 100px;
+        min-width: 200px;
+        margin-right: 12px;
+        margin-bottom: 12px;
     }
 }
