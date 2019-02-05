@@ -1,6 +1,7 @@
 @import "variables.scss";
 
 .todo-list {
+    min-height: 275px;
     display: flex;
     justify-content: space-evenly;
     @include bottomMargin();
@@ -8,5 +9,9 @@
 
     &__todo {
         width: 240px;
+    }
+
+    &__done {
+        margin-right: 6px;
     }
 }

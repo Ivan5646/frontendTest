@@ -4,6 +4,7 @@
 @import "addTask.scss";
 @import "todoList";
 @import "login";
+@import "editTask";
 
 .wrapper {
 
@@ -11,6 +12,5 @@
 
 .pagination {
     justify-content: center;
-    margin-top: 60px;
 }
 

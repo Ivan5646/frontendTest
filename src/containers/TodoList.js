@@ -44,24 +44,27 @@ class TodoList extends React.Component {
         e.preventDefault();
     }
 
+    crossedText(status) {
+        return status === 10 ? 'crossed' : '';
+    }
+
     render() {
         if (this.props.tasks) {
-            console.log("this.props.totalTasks", this.props.totalTasks);
             return (
                 <div className="container wrapper">
-                    <SortTasks/>
                     <AddTask/>
+                    <SortTasks/>
                     <div className="todo-list">{
                         (this.props.tasks || []).map((task, index) => {
                             return (
-                                <div key={task.id ? task.id : index} className="todo-list__todo">
+                                <div key={task.id ? task.id : index} className={`todo-list__todo ${this.crossedText(task.status)}`}>
                                     <div>{task.id}</div>
                                     <div><span>username: </span>{task.username}</div>
                                     <div><span>email: </span>{task.email}</div>
                                     <div>{task.text}</div>
                                     <div>
-                                        <label>Done</label>
-                                        <input onClick={(e) => this.handleCheck(e)} type="checkbox" defaultChecked={task.status && task.status !== 0}/>
+                                        <label className="todo-list__done">Done</label>
+                                        <input onClick={(e) => this.handleCheck(e)} type="checkbox" defaultChecked={task.status && task.status === 10}/>
                                     </div>
                                     <div>
                                         {this.props.admin && <button onClick={() => this.toggleEditForm(task.id)}>Edit</button>}
