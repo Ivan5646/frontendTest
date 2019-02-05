@@ -17,16 +17,8 @@ class AddTask extends React.Component {
         }
     }
 
-    handleUsernameChange(e) {
-        this.setState({username: e.target.value});
-    }
-
-    handleEmailChange(e) {
-        this.setState({email: e.target.value});
-    }
-
-    handleTextChange(e) {
-        this.setState({text: e.target.value});
+    formOnChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     onSubmit(e){
@@ -43,15 +35,15 @@ class AddTask extends React.Component {
             <form onSubmit={(e) => this.onSubmit(e)} className="add-task">
                 <div className="add-task__field-block">
                     <label>Name</label>
-                    <input type="text" value={this.state.username} onChange={(e) => this.handleUsernameChange(e)} placeholder="name" required />
+                    <input type="text" name="username" value={this.state.username} onChange={(e) => this.formOnChange(e)} placeholder="name" required />
                 </div>
                 <div className="add-task__field-block">
                     <label>Email</label>
-                    <input type="email" value={this.state.email} onChange={(e) => this.handleEmailChange(e)} placeholder="yourmail@gmail.com" required />
+                    <input type="email" name="email" value={this.state.email} onChange={(e) => this.formOnChange(e)} placeholder="yourmail@gmail.com" required />
                 </div>
                 <div className="add-task__field-block">
                     <label>Text</label>
-                    <input type="text"  value={this.state.text} onChange={(e) => this.handleTextChange(e)} placeholder="text" />
+                    <input type="text" name="text"  value={this.state.text} onChange={(e) => this.formOnChange(e)} placeholder="text" />
                 </div>
                 <button type="submit" className="btn btn-primary">create new task</button>
             </form>
