@@ -14,4 +14,8 @@
         color: #fff;
         cursor: pointer;
     }
+
+    @media screen and (max-width: 480px) {
+        flex-direction: column;
+    }
 }

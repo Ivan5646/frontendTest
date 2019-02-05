@@ -10,7 +10,7 @@ class Login extends React.Component {
         this.state = {
             login : "",
             password: "",
-            showForm: true
+            showForm: false
         }
     }
     

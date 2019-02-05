@@ -29,4 +29,21 @@
         cursor: pointer;
         height: 100%;
     }
+
+    @media screen and (max-width: 800px) {
+        flex-direction: column;
+
+        &__form {
+            flex-direction: column;
+            margin-bottom: 8px;
+
+            div {
+                display: flex;
+                justify-content: space-between;
+                margin-right: 0;
+                margin-bottom: 8px;
+            }
+        }
+    }
 }
+
