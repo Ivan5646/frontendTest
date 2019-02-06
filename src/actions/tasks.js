@@ -11,7 +11,7 @@ const instance = axios.create({
     },
 });
 
-// fetch args
+// set fetch args
 export const setPageNumber = (pageNumber) => ({
     type: 'SET_PAGE_NUMBER',
     pageNumber
@@ -37,12 +37,12 @@ export const receiveTasks = (result) => ({
     result: result,
 });
 
-export function fetchTasks(pageNumber, sortBy, sortOrder) {
+export function fetchTasks(pageNumber, sortBy, sortOrder) { // refactor
     //pageNumber = 5;
     return function (dispatch) {
-        console.log("fetch fired", `https://uxcandy.com/~shapoval/test-task-backend/?developer=mikhai${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}${sortOrder ? `&sort_direction=${sortOrder}` : ''}`);
+        console.log("fetch fired", `${config.APIHost}?developer=${config.developer}${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}${sortOrder ? `&sort_direction=${sortOrder}` : ''}`);
         dispatch(requestTasks());
-        return fetch(`https://uxcandy.com/~shapoval/test-task-backend/?developer=mikhai${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}${sortOrder ? `&sort_direction=${sortOrder}` : ''}`)
+        return fetch(`${config.APIHost}?developer=${config.developer}${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}${sortOrder ? `&sort_direction=${sortOrder}` : ''}`)
             .then(
                 response => response.json(),
                 error => console.log('An error occurred.', error),
@@ -56,8 +56,8 @@ export function fetchTasks(pageNumber, sortBy, sortOrder) {
     };
 }
 
-// async wait
-export const createTaskAwait = (task) => {
+// post task
+export const createTask = (task) => {
     return (dispatch) => {
         (async () => {
             const form = new FormData();
@@ -102,13 +102,7 @@ export const createTaskSuccess = (data) => {
     }
 };
 
-export const login = (data) => {
-    return {
-        type: 'LOGIN',
-        payload: data
-    }
-}
-
+// update task
 function generateSignature(data, token) {
     var status = data.status ? 10 : 0;
     // id 7612
@@ -162,11 +156,17 @@ export const updateTask = (task, id) => {
     }
 }
 
-
 export const updateTaskSuccess = (data) => {
     return {
         type: 'UPDATE_TASK_SUCCESS',
         data
+    }
+}
+
+export const login = (data) => {
+    return {
+        type: 'LOGIN',
+        payload: data
     }
 }
 

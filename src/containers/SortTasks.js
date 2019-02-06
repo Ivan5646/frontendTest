@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
-import { fetchTasks, setSortOrder, setSortField } from '../actions/index'
+import { fetchTasks, setSortOrder, setSortField } from '../actions/tasks'
 
 class SortTasks extends React.Component {
     constructor(props) {

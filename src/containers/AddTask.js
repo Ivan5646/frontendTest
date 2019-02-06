@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
-import { createTask, createTaskAwait } from "../actions/index";
+import { createTask } from "../actions/tasks";
 
 
 class AddTask extends React.Component {
@@ -23,7 +23,7 @@ class AddTask extends React.Component {
 
     onSubmit(e){
         e.preventDefault();
-        this.props.createTaskAwait({username: this.state.username, email: this.state.email, text: this.state.text});
+        this.props.createTask({username: this.state.username, email: this.state.email, text: this.state.text});
         // reset fields
         this.setState({username: ''});
         this.setState({text: ''});
@@ -58,7 +58,7 @@ function mapStateToProps(state){
 }
 
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({createTask: createTask, createTaskAwait: createTaskAwait}, dispatch)
+    return bindActionCreators({createTask: createTask, createTask: createTask}, dispatch)
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(AddTask);

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
-import { updateTask } from "../actions";
+import { updateTask } from "../actions/tasks";
 
 class EditTask extends React.Component {
     constructor(props) {
@@ -41,12 +41,6 @@ class EditTask extends React.Component {
         )
     }
 }
-
-// function mapStateToProps(state){
-//     return {
-//         tasks: state.tasks.tasks
-//     }
-// }
 
 function matchDispatchToProps(dispatch){
     return bindActionCreators({updateTask: updateTask}, dispatch)

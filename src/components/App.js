@@ -1,6 +1,6 @@
 import React from 'react'
 import TodoList from '../containers/TodoList'
-import Header from '../containers/Header'
+import Header from './Header'
 
 const App = () => (
     <div className="fluid-container">
