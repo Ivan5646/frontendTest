@@ -42,7 +42,7 @@ export function fetchTasks(pageNumber, sortBy, sortOrder) { // refactor
     return function (dispatch) {
         console.log("fetch fired", `${config.APIHost}?developer=${config.developer}${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}${sortOrder ? `&sort_direction=${sortOrder}` : ''}`);
         dispatch(requestTasks());
-        return fetch(`${config.APIHost}?developer=${config.developer}${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}${sortOrder ? `&sort_direction=${sortOrder}` : ''}`)
+        return fetch(`https://uxcandy.com/~shapoval/test-task-backend/?developer=mikhai${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}${sortOrder ? `&sort_direction=${sortOrder}` : ''}`)
             .then(
                 response => response.json(),
                 error => console.log('An error occurred.', error),
@@ -78,12 +78,15 @@ export const createTask = (task) => {
                     console.log("sortField", sortField);
                     const sortOrder = store.getState().fetchArgs.sortOrder;
                     console.log("sortOrder", sortOrder);
+                    dispatch(createTaskSuccess());
                     dispatch(fetchTasks(page, sortField, sortOrder));
                 } else {
                     console.log("data.message", data.message);
+                    dispatch(createTaskFailure());
                 }
             } catch (error) {
                 console.log('Network error');
+                dispatch(createTaskFailure());
             }
         })();
     }
@@ -101,6 +104,12 @@ export const createTaskSuccess = (data) => {
         }
     }
 };
+
+export const createTaskFailure = () => {
+    return {
+        type: 'CREATE_TASK_FAILURE'
+    }
+}
 
 // update task
 function generateSignature(data, token) {

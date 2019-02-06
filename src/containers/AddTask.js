@@ -12,8 +12,14 @@ class AddTask extends React.Component {
             username : "",
             text: "",
             email: "",
+            endLimit: null
             //checked: false
+
         }
+    }
+
+    componentDidMount() {
+
     }
 
     formOnChange(e) {
@@ -27,6 +33,29 @@ class AddTask extends React.Component {
         this.setState({username: ''});
         this.setState({text: ''});
         this.setState({email: ''});
+    }
+
+    timeOut() {
+        const timer = setTimeout( () => {
+            this.setState({['endLimit']: true});
+        }, 2500);
+        if (this.state.endLimit) {
+            clearTimeout(timer);
+        }
+    }
+
+    createTaskResult() {
+        if (this.props.newTask === 'success' && !this.state.endLimit) {
+            this.timeOut();
+            return (
+                <div className="add-task__result">Task created</div>
+            )
+        } else if (this.props.newTask === 'failed' && !this.state.endLimit) {
+            this.timeOut();
+            return (
+                <div className="add-task__result">Error occurred</div>
+            )
+        }
     }
 
     render() {
@@ -45,6 +74,7 @@ class AddTask extends React.Component {
                     <input type="text" name="text"  value={this.state.text} onChange={(e) => this.formOnChange(e)} placeholder="text" />
                 </div>
                 <button type="submit" className="btn btn-primary">create new task</button>
+                {this.createTaskResult()}
             </form>
         )
     }
@@ -52,7 +82,8 @@ class AddTask extends React.Component {
 
 function mapStateToProps(state){
     return {
-        tasks: state.tasks.tasks
+        tasks: state.tasks.tasks,
+        newTask: state.tasks.newTask
     }
 }
 
