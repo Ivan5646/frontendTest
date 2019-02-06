@@ -27,6 +27,18 @@ class EditTask extends React.Component {
         this.props.updateTask({text: this.state.text ? this.state.text : '', status: this.state.checked}, this.props.id);
     }
 
+    showUpdateResult() {
+        if (this.props.tasks.updatedTask === 'failed') {
+            return (
+                <div className="edit-task__result">error occurred</div>
+            )
+        } else if (this.props.tasks.updatedTask === 'success') {
+            return (
+                <div className="edit-task__result">success</div>
+            )
+        }
+    }
+
     render() {
         return(
             <form onSubmit={(e) => this.onSubmit(e)} className="edit-task">
@@ -37,8 +49,15 @@ class EditTask extends React.Component {
                     <input type="checkbox" defaultValue={this.props.status} onChange={(e) => this.handleStatusChange(e)} />
                 </div>
                 <button type="submit">edit</button>
+                {this.showUpdateResult()}
             </form>
         )
+    }
+}
+
+function mapStateToProps(state){
+    return {
+        tasks: state.tasks
     }
 }
 
@@ -46,4 +65,4 @@ function matchDispatchToProps(dispatch){
     return bindActionCreators({updateTask: updateTask}, dispatch)
 }
 
-export default connect(null, matchDispatchToProps)(EditTask);
+export default connect(mapStateToProps, matchDispatchToProps)(EditTask);

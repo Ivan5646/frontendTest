@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
 import { createTask } from "../actions/tasks";
 
-
 class AddTask extends React.Component {
 
     constructor(props){

@@ -1,4 +1,4 @@
-const reducer = (state = {sortField: ""}, action) => {
+const reducer = (state = {sortField: "", updatedTask: null}, action) => {
     switch (action.type) {
         case 'REQUEST_TASKS':
             return { ...state, loading: true };
@@ -8,6 +8,10 @@ const reducer = (state = {sortField: ""}, action) => {
             return {...state, newTask: action.payload}; // ? now fetched from backend
         case 'SET_SORT_FIELD':
             return {...state, sortField: action.sortField};
+        case 'UPDATE_TASK_FAILURE':
+            return {...state, updatedTask: "failed"};
+        case 'UPDATE_TASK_SUCCESS':
+            return {...state, updatedTask: "success"}
         default:
             return state;
     }

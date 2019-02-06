@@ -140,17 +140,20 @@ export const updateTask = (task, id) => {
                     //dispatch(createTaskSuccess(data));
                     //fetch tasks, handle arguments (save them to the store and get them from it?)
                     const page = store.getState().fetchArgs.pageNumber;
-                    console.log("page", page);
+                    // console.log("page", page);
                     const sortField = store.getState().fetchArgs.sortField;
-                    console.log("sortField", sortField);
+                    // console.log("sortField", sortField);
                     const sortOrder = store.getState().fetchArgs.sortOrder;
-                    console.log("sortOrder", sortOrder);
+                    // console.log("sortOrder", sortOrder);
+                    dispatch(updateTaskSuccess());
                     dispatch(fetchTasks(page, sortField, sortOrder));
                 } else {
                     console.log("data.message", data.message);
+                    dispatch(updateTaskFailure());
                 }
             } catch (error) {
                 console.log('Network error');
+                dispatch(updateTaskFailure());
             }
         })();
     }
@@ -163,10 +166,8 @@ export const updateTaskSuccess = (data) => {
     }
 }
 
-export const login = (data) => {
+export const updateTaskFailure = () => {
     return {
-        type: 'LOGIN',
-        payload: data
+        type: 'UPDATE_TASK_FAILURE'
     }
 }
-
