@@ -4,3 +4,9 @@ export const login = (data) => {
         payload: data
     }
 }
+
+export const logout = () => {
+    return {
+        type: 'LOGOUT',
+    }
+}

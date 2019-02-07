@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
-import { login } from "../actions/auth";
+import { login, logout } from "../actions/auth";
 import PropTypes from "prop-types";
 
 class Login extends React.Component {
@@ -28,6 +28,10 @@ class Login extends React.Component {
         this.setState({password: ''});
     }
 
+    logout() {
+        this.props.logout();
+    }
+
     renderForm(){
         this.setState({showForm: !this.state.showForm});
     }
@@ -48,13 +52,28 @@ class Login extends React.Component {
         )
     }
 
+    accountStatus() {
+        if (this.props.loggedUser) {
+            return (
+                <div className="login">
+                    <div onClick={() => this.logout()} className="login__btn">Sign out</div>
+                </div>
+            )
+        } else {
+            return (
+                <div className="login">
+                    <div>{this.form()}</div>
+                    <div onClick={() => this.renderForm()} className="login__btn">Sign in</div>
+                </div>
+            )
+
+        }
+    }
+
     render() {
         return (
-            <div className="login">
-                <div>{this.form()}</div>
-                <div onClick={() => this.renderForm()} className="login__btn">Login</div>
-            </div>
-            )
+            this.accountStatus()
+        )
     }
 }
 
@@ -63,8 +82,14 @@ Login.propTypes = {
     password: PropTypes.number
 }
 
-function matchDispatchToProps(dispatch){
-    return bindActionCreators({login: login}, dispatch)
+function mapStateToProps(state){
+    return {
+        loggedUser: state.login.loggedUser
+    }
 }
 
-export default connect(null, matchDispatchToProps)(Login);
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({login: login, logout: logout}, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(Login);
