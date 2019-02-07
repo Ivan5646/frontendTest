@@ -112,12 +112,14 @@ export const createTaskFailure = () => {
 }
 
 // update task
-function generateSignature(data, token) {
-    var status = data.status ? 10 : 0;
+function generateSignature(text, status) {
+    //var status = data.status ? 10 : 0;
     // id 7612
     // var sortedAndToken = "username=ajax&email=gggggggg@ggg.com&text=text text&token=beejee"; // sort alphabetically data
     //var sortedAndToken = "status=0&text=text text&token=beejee"; // only fields that are editing
-    var sortedAndToken = `status=${status}&text=${data.text}&token=beejee`; // the values being inputted
+    // sort alphabetically status and text?
+    var sortedAndToken = `status=${status}&text=${text}&${config.token}`; // the values being inputted
+    console.log("sortedAndToken", sortedAndToken);
     sortedAndToken = encodeURIComponent(sortedAndToken); // URI encode
     console.log("URI encoded", sortedAndToken);
     var signature = md5(sortedAndToken); // create md5 hash
@@ -138,8 +140,7 @@ export const updateTask = (task, id) => {
             form.append('text', task.text);
             form.append('status', status);
             form.append('token', config.token);
-            form.append('signature', generateSignature(task));
-            //form.append('signature', generateSignature(gatheringFormData, { key: 'token', value: config.token }));
+            form.append('signature', generateSignature(task.text, status));
 
             try {
                 const { data } = await instance.post(`/edit/${id}`, form);

@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
 import { login } from "../actions/auth";
+import PropTypes from "prop-types";
 
 class Login extends React.Component {
     constructor(props) {
@@ -55,6 +56,11 @@ class Login extends React.Component {
             </div>
             )
     }
+}
+
+Login.propTypes = {
+    username: PropTypes.string,
+    password: PropTypes.number
 }
 
 function matchDispatchToProps(dispatch){

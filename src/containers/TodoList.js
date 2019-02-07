@@ -68,7 +68,7 @@ class TodoList extends React.Component {
                                     </div>
                                     <div>
                                         {this.props.admin && <button onClick={() => this.toggleEditForm(task.id)}>Edit</button>}
-                                        {this.state.showForm && this.state.taskId === task.id && <EditTask text={task.text} status={task.status}/>}
+                                        {this.state.showForm && this.state.taskId === task.id && <EditTask text={task.text} status={task.status} id={task.id}/>}
                                     </div>
                                 </div>
                             )

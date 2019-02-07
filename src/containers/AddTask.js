@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
 import { createTask } from "../actions/tasks";
+import PropTypes from "prop-types";
 
 class AddTask extends React.Component {
 
@@ -13,13 +14,7 @@ class AddTask extends React.Component {
             text: "",
             email: "",
             endLimit: null
-            //checked: false
-
         }
-    }
-
-    componentDidMount() {
-
     }
 
     formOnChange(e) {
@@ -78,6 +73,13 @@ class AddTask extends React.Component {
             </form>
         )
     }
+}
+
+AddTask.propTypes = {
+    username: PropTypes.string,
+    email: PropTypes.string,
+    text: PropTypes.string,
+
 }
 
 function mapStateToProps(state){

@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import {bindActionCreators} from 'redux';
+import PropTypes from 'prop-types';
 import { updateTask } from "../actions/tasks";
 
 class EditTask extends React.Component {
@@ -24,6 +25,7 @@ class EditTask extends React.Component {
     onSubmit(e) {
         e.preventDefault();
         // handle nothing changed
+        console.log("this.props.id", this.props.id);
         this.props.updateTask({text: this.state.text ? this.state.text : '', status: this.state.checked}, this.props.id);
     }
 
@@ -53,6 +55,12 @@ class EditTask extends React.Component {
             </form>
         )
     }
+}
+
+EditTask.propTypes = {
+    id: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    status: PropTypes.number.isRequired
 }
 
 function mapStateToProps(state){
