@@ -92,20 +92,15 @@ export const createTask = (task) => {
     }
 }
 
-export const createTaskSuccess = (data) => {
-    console.log("createTaskSuccess", data);
+export const createTaskSuccess = () => {
+    console.log("createTaskSuccess");
     return {
-        type: 'ADD_TASK',
-        payload: {
-            //_id: data._id,
-            username: data.username,
-            email: data.email,
-            text: data.text
-        }
-    }
-};
+        type: 'CREATE_TASK_SUCCESS'
+    };
+}
 
 export const createTaskFailure = () => {
+    console.log("createTaskFailure");
     return {
         type: 'CREATE_TASK_FAILURE'
     }

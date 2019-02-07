@@ -33,13 +33,14 @@ class AddTask extends React.Component {
     timeOut() {
         const timer = setTimeout( () => {
             this.setState({['endLimit']: true});
-        }, 2500);
+        }, 3000);
         if (this.state.endLimit) {
             clearTimeout(timer);
         }
     }
 
     createTaskResult() {
+        console.log("createTaskResult", this.props.newTask);
         if (this.props.newTask === 'success' && !this.state.endLimit) {
             this.timeOut();
             return (

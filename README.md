@@ -1,28 +1,24 @@
-# ReduxAsyncActions
-Simple React-Redux example with async/sync actions using  Redux Thunk middleware
-
-### Usage
-
-```
-git clone https://github.com/Lavitr/ReduxAsyncActions.git
-cd ReduxAsyncActions 
+Usage
 npm install
-npm start
+npm run start
 open http://localhost:8080  (should start automatically )
 
-
-## Available Commands
-
+Available Commands
 - `npm start` - start the dev server
 - `npm run dev` - create a developer build in `dist` folder
 - `npm run build` - create a production ready build in `dist` folder
 - `npm test` - run all tests
 
-```
-### Dependencies
 
-* React
-* Webpack
-* [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
-* [babel-loader](https://github.com/babel/babel-loader)
+App Description
+Необходимо создать приложение-задачник.
+
+Задачи состоят из:
+- имени пользователя;
+- е-mail;
+- текста задачи;
+
+Стартовая страница - список задач с возможностью сортировки по имени пользователя, email и статусу. Вывод задач нужно сделать страницами по 3 штуки (с пагинацией). Видеть список задач и создавать новые может любой посетитель без регистрации.
+
+Сделайте вход для администратора (логин "admin", пароль "123"). Администратор имеет возможность редактировать текст задачи и поставить галочку о выполнении. Выполненные задачи в общем списке выводятся с соответствующей отметкой. В данный момент в back-end не реализована возможность логина, потому необходимо вывести форму-фальшивку, значения логина и пароля можно проверить прямо на клиенте.
 

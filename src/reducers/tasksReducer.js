@@ -6,7 +6,7 @@ const reducer = (state = {sortField: "", updatedTask: null, newTask: null}, acti
             return { ...state, tasks: action.result.message.tasks, totalTasks: action.result.message.total_task_count, loading: false };
         // case 'ADD_TASK':
         //     return {...state, newTask: action.payload}; // ? now fetched from backend
-        case 'ADD_TASK':
+        case 'CREATE_TASK_SUCCESS':
             return {...state, newTask: 'success'};
         case 'CREATE_TASK_FAILURE':
             return {...state, newTask: 'failed'};
