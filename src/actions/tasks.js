@@ -37,20 +37,16 @@ export const receiveTasks = (result) => ({
     result: result,
 });
 
-export function fetchTasks(pageNumber, sortBy, sortOrder) { // refactor
-    //pageNumber = 5;
+export function fetchTasks(pageNumber, sortBy, sortOrder) {
     return function (dispatch) {
-        console.log("fetch fired", `${config.APIHost}?developer=${config.developer}${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}${sortOrder ? `&sort_direction=${sortOrder}` : ''}`);
         dispatch(requestTasks());
-        return fetch(`https://uxcandy.com/~shapoval/test-task-backend/?developer=mikhai${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}${sortOrder ? `&sort_direction=${sortOrder}` : ''}`)
+        return fetch(`${config.APIHost}?developer=${config.developer}${pageNumber ? `&page=${pageNumber}` : ''}${sortBy ? `&sort_field=${sortBy}` : ''}${sortOrder ? `&sort_direction=${sortOrder}` : ''}`)
             .then(
                 response => response.json(),
                 error => console.log('An error occurred.', error),
             )
             .then((result) => {
                 dispatch(receiveTasks(result));
-                const storeTasks = store.getState().tasks;
-                console.log("storeTasks", storeTasks);
                 },
             );
     };
@@ -69,15 +65,9 @@ export const createTask = (task) => {
                 const { data } = await instance.post('/create', form);
 
                 if (data.status === 'ok') {
-                    console.log("data.status", data.status);
-                    //dispatch(createTaskSuccess(data))
-                    // fetch tasks, handle arguments (save them to the store and get them from it?)
                     const page = store.getState().fetchArgs.pageNumber;
-                    console.log("page", page);
                     const sortField = store.getState().fetchArgs.sortField;
-                    console.log("sortField", sortField);
                     const sortOrder = store.getState().fetchArgs.sortOrder;
-                    console.log("sortOrder", sortOrder);
                     dispatch(createTaskSuccess());
                     dispatch(fetchTasks(page, sortField, sortOrder));
                 } else {
@@ -93,14 +83,12 @@ export const createTask = (task) => {
 }
 
 export const createTaskSuccess = () => {
-    console.log("createTaskSuccess");
     return {
         type: 'CREATE_TASK_SUCCESS'
     };
 }
 
 export const createTaskFailure = () => {
-    console.log("createTaskFailure");
     return {
         type: 'CREATE_TASK_FAILURE'
     }
@@ -108,27 +96,16 @@ export const createTaskFailure = () => {
 
 // update task
 function generateSignature(text, status) {
-    //var status = data.status ? 10 : 0;
-    // id 7612
-    // var sortedAndToken = "username=ajax&email=gggggggg@ggg.com&text=text text&token=beejee"; // sort alphabetically data
-    //var sortedAndToken = "status=0&text=text text&token=beejee"; // only fields that are editing
     // sort alphabetically status and text?
-    var sortedAndToken = `status=${status}&text=${text}&${config.token}`; // the values being inputted
-    console.log("sortedAndToken", sortedAndToken);
+    let sortedAndToken = `status=${status}&text=${text}&${config.token}`; // the values being inputted
     sortedAndToken = encodeURIComponent(sortedAndToken); // URI encode
-    console.log("URI encoded", sortedAndToken);
-    var signature = md5(sortedAndToken); // create md5 hash
-    console.log("signature", signature);
+    const signature = md5(sortedAndToken); // create md5 hash
     return signature;
-
-    //const signature = `${data.username}${data.email}${data.text}`
 }
-//generateSignature();
 
 export const updateTask = (task, id) => {
     var status = task.status ? 10 : 0;
     status = status.toString();
-    console.log("task, id", task, id);
     return (dispatch) => {
         (async () => {
             const form = new FormData();
@@ -141,19 +118,12 @@ export const updateTask = (task, id) => {
                 const { data } = await instance.post(`/edit/${id}`, form);
 
                 if (data.status === 'ok') {
-                    console.log("data.status", data.status);
-                    //dispatch(createTaskSuccess(data));
-                    //fetch tasks, handle arguments (save them to the store and get them from it?)
                     const page = store.getState().fetchArgs.pageNumber;
-                    // console.log("page", page);
                     const sortField = store.getState().fetchArgs.sortField;
-                    // console.log("sortField", sortField);
                     const sortOrder = store.getState().fetchArgs.sortOrder;
-                    // console.log("sortOrder", sortOrder);
                     dispatch(updateTaskSuccess());
                     dispatch(fetchTasks(page, sortField, sortOrder));
                 } else {
-                    console.log("data.message", data.message);
                     dispatch(updateTaskFailure());
                 }
             } catch (error) {

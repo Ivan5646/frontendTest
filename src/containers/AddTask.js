@@ -40,7 +40,6 @@ class AddTask extends React.Component {
     }
 
     createTaskResult() {
-        console.log("createTaskResult", this.props.newTask);
         if (this.props.newTask === 'success' && !this.state.endLimit) {
             this.timeOut();
             return (

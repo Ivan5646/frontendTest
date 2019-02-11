@@ -25,7 +25,6 @@ class EditTask extends React.Component {
     onSubmit(e) {
         e.preventDefault();
         // handle nothing changed
-        console.log("this.props.id", this.props.id);
         this.props.updateTask({text: this.state.text ? this.state.text : '', status: this.state.checked}, this.props.id);
     }
 

@@ -5,7 +5,6 @@ import Pagination from "react-js-pagination";
 import { fetchTasks, setPageNumber } from "../actions/tasks";
 import AddTask from "./AddTask"
 import SortTasks from "./SortTasks"
-// import Login from "./Login"
 import EditTask from "./EditTask"
 
 class TodoList extends React.Component {
@@ -23,12 +22,8 @@ class TodoList extends React.Component {
     }
 
     handlePageChange(pageNumber) {
-        console.log("handlePageChange", pageNumber);
         this.setState({activePage: pageNumber});
-        // var sortArg = globSortField ? globSortField : "";
         this.props.fetchTasks(pageNumber, this.props.sortField, this.props.sortOrder);
-
-        // set the fetch args here to the store, in action get it from the store
         this.props.setPageNumber(pageNumber);
     }
 
@@ -58,7 +53,6 @@ class TodoList extends React.Component {
                         (this.props.tasks || []).map((task, index) => {
                             return (
                                 <div key={task.id ? task.id : index} className={`todo-list__todo ${this.crossedText(task.status)}`}>
-                                    <div>{task.id}</div>
                                     <div><span>username: </span>{task.username}</div>
                                     <div><span>email: </span>{task.email}</div>
                                     <div>{task.text}</div>
@@ -97,7 +91,6 @@ function mapStateToProps(state){
     return {
         tasks: state.tasks.tasks,
         totalTasks: state.tasks.totalTasks,
-        //sortField: state.tasks.sortField,
         admin: state.login.loggedUser,
         sortField: state.fetchArgs.sortField,
         sortOrder: state.fetchArgs.sortOrder,

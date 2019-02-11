@@ -6,13 +6,11 @@ import { fetchTasks, setSortOrder, setSortField } from '../actions/tasks'
 class SortTasks extends React.Component {
     constructor(props) {
         super(props);
-        //window.globSortField = null;
     }
 
     sort(sortField) {
        this.props.fetchTasks(this.props.pageNumber, sortField, this.props.sortOrder);
        this.props.setSortField(sortField);
-       //window.globSortField = sortField;
     }
 
     sortDirection() {

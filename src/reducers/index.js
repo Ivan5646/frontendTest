@@ -3,7 +3,7 @@ import tasksReducer from "./tasksReducer";
 import loginReducer from "./loginReducer";
 import fetchArgsReducer from "./fetchArgsReducer"
 
-const allReducers = combineReducers({ // that will be thrown to the Store
+const allReducers = combineReducers({
     tasks: tasksReducer,
     login: loginReducer,
     fetchArgs: fetchArgsReducer
